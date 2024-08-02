@@ -1,8 +1,6 @@
 import axios from "axios";
-import Ajv from 'ajv';
 import { readFile } from "fs/promises";
 import { join } from 'path';
-const ajv = new Ajv({ allErrors: true })
 
 /**
  * Create a new client for interacting with the Oxapay Merchant API.
@@ -38,11 +36,6 @@ class ClientPayout {
     private async request(method: 'createPayout' | 'payoutHistory' | 'accountBalance' | 'payoutInquiry', reqData?: object) {
         try {
             await this.initialization;
-            if (reqData) {
-                var validator = ajv.compile(this.methods[method].schema)
-                var valid = await validator(reqData)
-                if (!valid) throw new Error(JSON.stringify(validator.errors, null, 2))
-            }
             const response = await axios.post(`${this.apiBaseURL}${this.methods[method].path}`, {
                 key: this.apiKey,
                 ...reqData,
@@ -71,12 +64,12 @@ class ClientPayout {
     async createPayout(reqData: {
         address: string;
         amount: number;
-        network: string;
+        network?: string;
         currency: string;
-        callbackUrl: string;
-        description: string;
+        callbackUrl?: string;
+        description?: string;
     }): Promise<{
-        result: number
+        result: 100 | 101 | 102 | 103 | 104 | 105 | 106 | 107 | 108 | 109 | 110 | 111 | 112 | 113 | 114 | 115 | 116 | 117 | 118 | 119 | 120 | 121 | 122 | 123 | 124 | 125 | 126 | 127 | 128 | 129 | 130 | 131 | 135 | 500
         message: string,
         trackId: string,
         status: string
