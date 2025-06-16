@@ -63,6 +63,7 @@ class ClientPayment {
                     "merchant_api_key": this.apiKey,
                 },
                 data: reqData,
+                validateStatus: () => true, 
             });
 
             if (this.isDebug) console.log(response.data);
@@ -241,8 +242,9 @@ class ClientPayment {
             date: number;
         }[];
     }>> {
+        await this.initialization;
         const methodInfo = this.methods["paymentInfo"];
-        const url = `${this.apiBaseURL}${methodInfo.path}/${reqData.track_id}`;
+        const url = `${this.apiBaseURL}${methodInfo.path}${reqData.track_id}`;
         return this.request("paymentInfo", {}, url);
     }
 

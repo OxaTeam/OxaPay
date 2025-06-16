@@ -76,9 +76,10 @@ var ClientPayout = /** @class */ (function () {
                                 method: methodInfo.reqType.toLowerCase(),
                                 url: url,
                                 headers: {
-                                    "merchant_api_key": this.apiKey,
+                                    "payout_api_key": this.apiKey,
                                 },
                                 data: reqData,
+                                validateStatus: function () { return true; },
                             })];
                     case 2:
                         response = _a.sent();
@@ -117,9 +118,14 @@ var ClientPayout = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             var methodInfo, url;
             return __generator(this, function (_a) {
-                methodInfo = this.methods['payoutInfo'];
-                url = "".concat(this.apiBaseURL).concat(methodInfo.path, "/").concat(reqData.trackId);
-                return [2 /*return*/, this.request('payoutInfo', reqData, url)];
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.initialization];
+                    case 1:
+                        _a.sent();
+                        methodInfo = this.methods['payoutInfo'];
+                        url = "".concat(this.apiBaseURL).concat(methodInfo.path, "/").concat(reqData.trackId);
+                        return [2 /*return*/, this.request('payoutInfo', reqData, url)];
+                }
             });
         });
     };

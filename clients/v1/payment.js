@@ -88,6 +88,7 @@ var ClientPayment = /** @class */ (function () {
                                     "merchant_api_key": this.apiKey,
                                 },
                                 data: reqData,
+                                validateStatus: function () { return true; },
                             })];
                     case 2:
                         response = _a.sent();
@@ -156,9 +157,14 @@ var ClientPayment = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             var methodInfo, url;
             return __generator(this, function (_a) {
-                methodInfo = this.methods["paymentInfo"];
-                url = "".concat(this.apiBaseURL).concat(methodInfo.path, "/").concat(reqData.track_id);
-                return [2 /*return*/, this.request("paymentInfo", {}, url)];
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.initialization];
+                    case 1:
+                        _a.sent();
+                        methodInfo = this.methods["paymentInfo"];
+                        url = "".concat(this.apiBaseURL).concat(methodInfo.path).concat(reqData.track_id);
+                        return [2 /*return*/, this.request("paymentInfo", {}, url)];
+                }
             });
         });
     };
